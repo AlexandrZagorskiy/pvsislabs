@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.TableItem;
 public class MainWindow {
 
 	
-	public static void main(String[] args) {
+	public void run() {
 
 		Display display = new Display();
 		
@@ -46,12 +46,11 @@ public class MainWindow {
 	    table.setSize(table.computeSize(SWT.DEFAULT, 200));
 	    
 
-	    new AddStudentWindow().showWindow(display);
+	    new AddStudentWindow().showWindow(display, shell);
 	    
 	    
 	    
-	    shell.pack();
-		
+	    shell.pack();		
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
