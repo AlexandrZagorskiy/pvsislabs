@@ -2,9 +2,17 @@ package labwork2.model;
 
 public class StudentCourse {
 	
-	String course;
+	int course;
 	
-	public StudentCourse(String course) {
+	public StudentCourse(int course) {
+		this.course = course;
+	}
+
+	public int getCourse() {
+		return course;
+	}
+
+	public void setCourse(int course) {
 		this.course = course;
 	}
 }

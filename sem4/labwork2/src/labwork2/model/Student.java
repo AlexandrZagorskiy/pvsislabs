@@ -15,4 +15,44 @@ public class Student {
 		this.works = works;
 		this.progLanguage = progLanguage;
 	}
+
+	public StudentFullName getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(StudentFullName fullName) {
+		this.fullName = fullName;
+	}
+
+	public StudentCourse getCourse() {
+		return course;
+	}
+
+	public void setCourse(StudentCourse course) {
+		this.course = course;
+	}
+
+	public StudentGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup(StudentGroup group) {
+		this.group = group;
+	}
+
+	public StudentWorks getWorks() {
+		return works;
+	}
+
+	public void setWorks(StudentWorks works) {
+		this.works = works;
+	}
+
+	public ProgLanguage getProgLanguage() {
+		return progLanguage;
+	}
+
+	public void setProgLanguage(ProgLanguage progLanguage) {
+		this.progLanguage = progLanguage;
+	}
 }
