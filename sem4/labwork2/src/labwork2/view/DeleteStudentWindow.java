@@ -9,125 +9,127 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import labwork2.controller.DeleteStudentController;
+import labwork2.controller.*;
 import labwork2.model.*;
 
 public class DeleteStudentWindow {
 
-	public void showWindow(Display display, Shell shell, Table table) {
+	public void showWindow(Display display, Shell shell, Labwork labwork, MainWindow mainWindow) {
 		
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
 	    
-		Shell addStudentWindow = new Shell(shell);
-		addStudentWindow.setLayout(gridLayout);
-		addStudentWindow.setSize(240, 224);
+		Shell deleteStudentWindow = new Shell(shell);
+		deleteStudentWindow.setLayout(gridLayout);
+		deleteStudentWindow.setSize(240, 224);
 	    
 	    GridData gridDataButton = new GridData();
 	    gridDataButton.horizontalAlignment = GridData.FILL;
 		
-		Label surnameLabel = new Label(addStudentWindow, SWT.NONE);
-        Text surnameText = new Text(addStudentWindow, SWT.FILL);
+		Label surnameLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text surnameText = new Text(deleteStudentWindow, SWT.FILL);
         surnameLabel.setText("Фамилия: ");
-        surnameText.setText(null);
+        surnameText.setText("-");
         
-        Label nameLabel = new Label(addStudentWindow, SWT.NONE);
-        Text nameText = new Text(addStudentWindow, SWT.NONE);
+        Label nameLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text nameText = new Text(deleteStudentWindow, SWT.NONE);
         nameLabel.setText("Имя: ");
-        nameText.setText(null);
+        nameText.setText("-");
         
-		Label patronymicLabel = new Label(addStudentWindow, SWT.NONE);
-        Text patronymicText = new Text(addStudentWindow, SWT.NONE);
+		Label patronymicLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text patronymicText = new Text(deleteStudentWindow, SWT.NONE);
 		patronymicLabel.setText("Отчество: ");
-		patronymicText.setText(null);
+		patronymicText.setText("-");
 		
-		Label courseLabel = new Label(addStudentWindow, SWT.NONE);
-        Text courseText = new Text(addStudentWindow, SWT.NONE);
+		Label courseLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text courseText = new Text(deleteStudentWindow, SWT.NONE);
 		courseLabel.setText("Курс: ");
-		courseText.setText(null);
+		courseText.setText("-");
 		
-		Label groupLabel = new Label(addStudentWindow, SWT.NONE);
-        Text groupText = new Text(addStudentWindow, SWT.NONE);
+		Label groupLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text groupText = new Text(deleteStudentWindow, SWT.NONE);
 		groupLabel.setText("Группа: ");
-		groupText.setText(null);
+		groupText.setText("-");
 		
-		Label worksMaxLabel = new Label(addStudentWindow, SWT.NONE);
-        Text worksMaxText = new Text(addStudentWindow, SWT.NONE);
+		Label worksMaxLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text worksMaxText = new Text(deleteStudentWindow, SWT.NONE);
 		worksMaxLabel.setText("Работ всего: ");
-		worksMaxText.setText(null);
+		worksMaxText.setText("-");
 		
-		Label worksMadeLabel = new Label(addStudentWindow, SWT.NONE);
-        Text worksMadeText = new Text(addStudentWindow, SWT.NONE);
+		Label worksMadeLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text worksMadeText = new Text(deleteStudentWindow, SWT.NONE);
 		worksMadeLabel.setText("Работ сделано: ");
-		worksMadeText.setText(null);
+		worksMadeText.setText("-");
 		
-		Label progLanguageLabel = new Label(addStudentWindow, SWT.NONE);
-        Text progLanguageText = new Text(addStudentWindow, SWT.NONE);
+		Label progLanguageLabel = new Label(deleteStudentWindow, SWT.NONE);
+        Text progLanguageText = new Text(deleteStudentWindow, SWT.NONE);
 		progLanguageLabel.setText("Язык программирования: ");
-		progLanguageText.setText(null);
+		progLanguageText.setText("-");
 		
-		Button deleteStudentButton = new Button(addStudentWindow, SWT.PUSH);
-		Button cancelButton = new Button(addStudentWindow, SWT.PUSH);
+		Button deleteStudentButton = new Button(deleteStudentWindow, SWT.PUSH);
+		Button cancelButton = new Button(deleteStudentWindow, SWT.PUSH);
 		deleteStudentButton.setLayoutData(gridDataButton);
-		deleteStudentButton.setText("Add student");
+		deleteStudentButton.setText("Delete student");
 		cancelButton.setLayoutData(gridDataButton);
 		cancelButton.setText("Cancel");
 				
 		deleteStudentButton.addSelectionListener (new SelectionAdapter() {
 			
-			StudentFullName studentFullName = null;
-			StudentCourse studentCourse = null;
-			StudentGroup studentGroup = null;
-			StudentWorks studentWorks = null;
-			ProgLanguage progLanguage = null;
-			
 			public void widgetSelected(SelectionEvent e) {
+				String surname = null;
+				String name = null;
+				String patronymic = null;
+				Course course = null;
+				Group group = null;
+				Works works = null;
+				ProgLanguage progLanguage = null;
 				
-				if (surnameText.getText() != null &&
-					nameText.getText() != null &&
-					patronymicText.getText() != null) {					
-					studentFullName = new StudentFullName(
-						surnameText.getText(),
-						nameText.getText(),
-						patronymicText.getText()
-						);
+				if (!surnameText.getText().equals("-") &&
+					!nameText.getText().equals("-") &&
+					!patronymicText.getText().equals("-")) {	
+					
+					surname = surnameText.getText();	
+					name = nameText.getText();	
+					patronymic = patronymicText.getText();							
 				} 
 				
-				if (courseText != null) {
-					studentCourse = new StudentCourse(
+				if (!courseText.getText().equals("-")) {
+					course = new Course(
 						Integer.parseInt(courseText.getText())
 						);
 				}
 				
-				if (groupText != null) {
-					studentGroup = new StudentGroup(groupText.getText());
+				if (!groupText.getText().equals("-")) {
+					group = new Group(groupText.getText());
 				}
 				
-				if (worksMadeText != null || worksMaxText != null) {
-					studentWorks = new StudentWorks(
+				if (!worksMaxText.getText().equals("-") || !worksMadeText.getText().equals("-")) {
+					works = new Works(
 						Integer.parseInt(worksMaxText.getText()),
 						Integer.parseInt(worksMadeText.getText())
 						);
 				}
 				
-				if (progLanguageText != null) {
+				if (!progLanguageText.getText().equals("-")) {
 				   progLanguage = new ProgLanguage(progLanguageText.getText());
 				}			
 				
 				Student student = new Student(
-						studentFullName,
-						studentCourse,
-						studentGroup,
-						studentWorks,
+						surname,
+						name,
+						patronymic,
+						course,
+						group,
+						works,
 						progLanguage
 						);
-				new DeleteStudentController().deleteStudentFromTable(student, table);
+				labwork.getDeleteStudentController().deleteStudentFromTable(student, labwork);
+				mainWindow.showTable(labwork.getStudentsInTable());
 			}
 		});
 		
-		addStudentWindow.open();
+		deleteStudentWindow.open();
 	}
 }

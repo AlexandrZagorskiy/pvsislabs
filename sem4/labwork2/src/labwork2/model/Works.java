@@ -1,10 +1,10 @@
 package labwork2.model;
 
-public class StudentWorks {
+public class Works {
 	int worksMax;
 	int worksMade;
 	
-	public StudentWorks (int worksMax, int worksMade) {
+	public Works (int worksMax, int worksMade) {
 		this.worksMax = worksMax;
 		this.worksMade = worksMade;
 	}

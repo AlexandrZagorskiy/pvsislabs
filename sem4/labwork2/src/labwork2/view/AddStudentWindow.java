@@ -9,15 +9,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import labwork2.controller.AddStudentController;
+import labwork2.controller.*;
 import labwork2.model.*;
 
 public class AddStudentWindow {
 
-	public void showWindow(Display display, Shell shell, Table table) {
+	public void showWindow(Display display, Shell shell, Labwork labwork, MainWindow mainWindow) {
 
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
@@ -70,13 +69,25 @@ public class AddStudentWindow {
 				
 		addStudentButton.addSelectionListener (new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				StudentFullName studentFullName = new StudentFullName(surnameText.getText(), nameText.getText(), patronymicText.getText());
-				StudentCourse studentCourse = new StudentCourse(Integer.parseInt(courseText.getText()));
-				StudentGroup studentGroup = new StudentGroup(groupText.getText());
-				StudentWorks StudentWorks = new StudentWorks(Integer.parseInt(worksMaxText.getText()), Integer.parseInt(worksMadeText.getText()));
-				ProgLanguage ProgLanguage = new ProgLanguage(progLanguageText.getText());
-				Student student = new Student(studentFullName, studentCourse, studentGroup, StudentWorks, ProgLanguage);
-				new AddStudentController().addStudentInTable(student, table);
+				
+				String name = nameText.getText();
+				String surname = surnameText.getText();
+				String patronymic = patronymicText.getText();
+				Course course = new Course(Integer.parseInt(courseText.getText()));
+				Group group = new Group(groupText.getText());
+				Works works = new Works(Integer.parseInt(worksMaxText.getText()), Integer.parseInt(worksMadeText.getText()));
+				ProgLanguage progLanguage = new ProgLanguage(progLanguageText.getText());
+				Student student = new Student(
+						surname,
+						name, 
+						patronymic, 
+						course, 
+						group, 
+						works, 
+						progLanguage
+						);
+				labwork.getAddStudentController().addStudentInTable(student, labwork);
+				mainWindow.showTable(labwork.getStudentsInTable());
 			}
 		});
 		

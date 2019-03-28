@@ -2,49 +2,53 @@ package labwork2.model;
 
 public class Student {
 	
-	StudentFullName fullName;
-	StudentCourse course;
-	StudentGroup group;
-	StudentWorks works;
+	String surname;
+	String name;	
+	String patronymic;
+	Course course;
+	Group group;
+	Works works;
 	ProgLanguage progLanguage;
 	
-	public Student (StudentFullName studentFullName, StudentCourse course, StudentGroup group, StudentWorks works, ProgLanguage progLanguage) {
-		this.fullName = studentFullName;
+	public Student (String surname, String name, String patronymic, Course course, Group group, Works works, ProgLanguage progLanguage) {
+		this.name = name;
+		this.surname = surname;
+		this.patronymic = patronymic;
 		this.course = course;
 		this.group = group;
 		this.works = works;
 		this.progLanguage = progLanguage;
 	}
 
-	public StudentFullName getFullName() {
-		return fullName;
+
+
+	public void setFullName(String surname, String name, String patronymic) {
+		this.name = name;
+		this.surname = surname;
+		this.patronymic = patronymic;
 	}
 
-	public void setFullName(StudentFullName fullName) {
-		this.fullName = fullName;
-	}
-
-	public StudentCourse getCourse() {
+	public Course getCourse() {
 		return course;
 	}
 
-	public void setCourse(StudentCourse course) {
+	public void setCourse(Course course) {
 		this.course = course;
 	}
 
-	public StudentGroup getGroup() {
+	public Group getGroup() {
 		return group;
 	}
 
-	public void setGroup(StudentGroup group) {
+	public void setGroup(Group group) {
 		this.group = group;
 	}
 
-	public StudentWorks getWorks() {
+	public Works getWorks() {
 		return works;
 	}
 
-	public void setWorks(StudentWorks works) {
+	public void setWorks(Works works) {
 		this.works = works;
 	}
 
@@ -54,5 +58,41 @@ public class Student {
 
 	public void setProgLanguage(ProgLanguage progLanguage) {
 		this.progLanguage = progLanguage;
+	}
+
+
+
+	public String getSurname() {
+		return surname;
+	}
+
+
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public String getPatronymic() {
+		return patronymic;
+	}
+
+
+
+	public void setPatronymic(String patronymic) {
+		this.patronymic = patronymic;
 	}
 }
