@@ -6,7 +6,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -16,12 +15,13 @@ import labwork2.model.*;
 
 public class AddStudentWindow {
 
-	public void showWindow(Display display, Shell shell, Labwork labwork, MainWindow mainWindow) {
+	public void showWindow(Shell shell, Labwork labwork, MainWindow mainWindow) {
 
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
 	    
 		Shell addStudentWindow = new Shell(shell);
+		addStudentWindow.setText("добавить студента");
 		addStudentWindow.setLayout(gridLayout);
 		addStudentWindow.setSize(240, 224);
 	    
@@ -74,7 +74,7 @@ public class AddStudentWindow {
 				String surname = surnameText.getText();
 				String patronymic = patronymicText.getText();
 				Course course = new Course(Integer.parseInt(courseText.getText()));
-				Group group = new Group(groupText.getText());
+				StudGroup group = new StudGroup(groupText.getText());
 				Works works = new Works(Integer.parseInt(worksMaxText.getText()), Integer.parseInt(worksMadeText.getText()));
 				ProgLanguage progLanguage = new ProgLanguage(progLanguageText.getText());
 				Student student = new Student(

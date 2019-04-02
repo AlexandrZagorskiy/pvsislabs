@@ -1,9 +1,9 @@
 package labwork2.model;
 
-public class Group {
+public class StudGroup {
 	String groupNumber;
 	
-	public Group (String groupNumber) {
+	public StudGroup (String groupNumber) {
 		this.groupNumber = groupNumber;
 	}
 

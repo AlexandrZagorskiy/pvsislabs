@@ -6,11 +6,11 @@ public class Student {
 	String name;	
 	String patronymic;
 	Course course;
-	Group group;
+	StudGroup group;
 	Works works;
 	ProgLanguage progLanguage;
 	
-	public Student (String surname, String name, String patronymic, Course course, Group group, Works works, ProgLanguage progLanguage) {
+	public Student (String surname, String name, String patronymic, Course course, StudGroup group, Works works, ProgLanguage progLanguage) {
 		this.name = name;
 		this.surname = surname;
 		this.patronymic = patronymic;
@@ -36,11 +36,11 @@ public class Student {
 		this.course = course;
 	}
 
-	public Group getGroup() {
+	public StudGroup getGroup() {
 		return group;
 	}
 
-	public void setGroup(Group group) {
+	public void setGroup(StudGroup group) {
 		this.group = group;
 	}
 

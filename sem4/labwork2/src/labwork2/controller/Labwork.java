@@ -2,11 +2,7 @@ package labwork2.controller;
 
 import java.util.ArrayList;
 
-import labwork2.model.Course;
-import labwork2.model.Group;
-import labwork2.model.ProgLanguage;
-import labwork2.model.Student;
-import labwork2.model.Works;
+import labwork2.model.*;
 import labwork2.view.MainWindow;
 
 public class Labwork {
@@ -23,7 +19,7 @@ public class Labwork {
 	    		"Евгений",
 	    		"Валерьевич",
 	    		new Course(2),
-	    		new Group("721703"), 
+	    		new StudGroup("721703"), 
 	    		new Works(12, 4), 
 	    		new ProgLanguage("Java")
 	    		));

@@ -3,6 +3,8 @@ package labwork2.view;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -29,7 +31,7 @@ public class MainWindow {
 		display = new Display();
 		
 		mainWindowShell = new Shell(display);
-		mainWindowShell.setText("second labwork");
+		mainWindowShell.setText("таблица");
 		mainWindowShell.setLayout(new RowLayout(SWT.HORIZONTAL)); 
 		
 		mainWindow = new MainWindow();
@@ -41,17 +43,24 @@ public class MainWindow {
 		deleteStudent.setText("Удалить студента");	
 		mainWindowShell.setMenuBar(menuBar);
 		
-		table = new Table(mainWindowShell,
-				SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
+		table = new Table(mainWindowShell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		mainWindow.setTable(table);
 		
+		mainWindow.setTable(table);		
 	    mainWindow.showTable(labwork.getStudentsInTable());
-
-	    new AddStudentWindow().showWindow(display, mainWindowShell, labwork, mainWindow);
-	    new DeleteStudentWindow().showWindow(display, mainWindowShell, labwork, mainWindow);
 	    
+	    addStudent.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				new AddStudentWindow().showWindow(mainWindowShell, labwork, mainWindow);
+			}
+		});
+
+	    deleteStudent.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+			    new DeleteStudentWindow().showWindow(mainWindowShell, labwork, mainWindow);
+			}
+		});	    
 	    
 	    mainWindowShell.pack();		
 		mainWindowShell.open();
