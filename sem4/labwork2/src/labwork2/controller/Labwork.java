@@ -1,53 +1,31 @@
 package labwork2.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import labwork2.model.*;
-import labwork2.view.MainWindow;
+import labwork2.view.View;
 
-public class Labwork {
-
-	private DeleteStudentController deleteStudentController = new DeleteStudentController();
-	private AddStudentController addStudentController = new AddStudentController();
-	private ArrayList<Student> studentsInTable = new ArrayList<Student>();
-	
+public class Labwork {	
 	
 	public static void main(String[] args) {
-		Labwork labwork = new Labwork();
-	    labwork.getStudentsInTable().add(new Student(
-	    		"Шамрук",
-	    		"Евгений",
-	    		"Валерьевич",
-	    		new Course(2),
-	    		new StudGroup("721703"), 
-	    		new Works(12, 4), 
-	    		new ProgLanguage("Java")
-	    		));
-	    
-	    
-		new MainWindow().run(labwork);
+		
+		List<Student> studentsInTable = new ArrayList<Student>();
+		
+		Controller controller = new Controller();
+		Model model = new Model(studentsInTable);
+		View view = new View();
+//	    labwork.getStudentsInTable().add(new Student(
+//	    		"Шамрук",
+//	    		"Евгений",
+//	    		"Валерьевич",
+//	    		new Course(2),
+//	    		new StudGroup("721703"), 
+//	    		new Works(12, 4), 
+//	    		new ProgLanguage("Java")
+//	    		));
+	    view.run(model);
 	}
-
-
-	public DeleteStudentController getDeleteStudentController() {
-		return deleteStudentController;
-	}
-
-
-	public AddStudentController getAddStudentController() {
-		return addStudentController;
-	}
-
-
-	public ArrayList<Student> getStudentsInTable() {
-		return studentsInTable;
-	}
-
-
-	public void setStudentsInTable(ArrayList<Student> studentsInTable) {
-		this.studentsInTable = studentsInTable;
-	}
-
 }
 
 /*
