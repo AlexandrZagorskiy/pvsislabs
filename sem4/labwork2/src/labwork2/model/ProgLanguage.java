@@ -6,6 +6,10 @@ public class ProgLanguage {
 	public ProgLanguage(String progLanguage) {
 		this.progLanguage = progLanguage;
 	}
+	
+	public ProgLanguage() {
+		this.progLanguage = "";
+	}
 
 	public String getProgLanguage() {
 		return progLanguage;

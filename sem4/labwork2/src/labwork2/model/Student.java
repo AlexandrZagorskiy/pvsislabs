@@ -1,8 +1,5 @@
 package labwork2.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Student {
 	
 	String surname;
@@ -23,10 +20,14 @@ public class Student {
 		this.progLanguage = progLanguage;
 	}
 
-	public void setFullName(String surname, String name, String patronymic) {
-		this.name = name;
-		this.surname = surname;
-		this.patronymic = patronymic;
+	public Student() {
+		this.name = "";
+		this.surname = "";
+		this.patronymic = "";		
+		this.course = new Course();
+		this.group = new StudGroup();
+		this.works = new Works();
+		this.progLanguage = new ProgLanguage();		
 	}
 
 	public Course getCourse() {

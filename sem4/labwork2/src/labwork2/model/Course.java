@@ -7,6 +7,10 @@ public class Course {
 	public Course(int courseNumber) {
 		this.courseNumber = courseNumber;
 	}
+	
+	public Course() {
+		this.courseNumber = 0;
+	}
 
 	public int getCourseNumber() {
 		return courseNumber;

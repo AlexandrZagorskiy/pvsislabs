@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<student>
+	<surname>Бирилов</surname>
+	<name>Глеб</name>
+	<patronymic>Валерьевич</patronymic>
+	<course>2</course>
+	<group>721703</group>
+	<works_max>4</works_max>
+	<works_made>3</works_made>
+	<prog_lang>Java</prog_lang>
+</student>
+<student>
+	<surname>Бирилов</surname>
+	<name>Глеб</name>
+	<patronymic>Валерьевич</patronymic>
+	<course>2</course>
+	<group>721703</group>
+	<works_max>4</works_max>
+	<works_made>3</works_made>
+	<prog_lang>Java</prog_lang>
+</student>

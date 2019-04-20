@@ -8,6 +8,11 @@ public class Works {
 		this.worksMax = worksMax;
 		this.worksMade = worksMade;
 	}
+	
+	public Works () {
+		this.worksMax = 0;
+		this.worksMade = 0;
+	}
 
 	public int getWorksMax() {
 		return worksMax;

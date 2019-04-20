@@ -6,6 +6,10 @@ public class StudGroup {
 	public StudGroup (String groupNumber) {
 		this.groupNumber = groupNumber;
 	}
+	
+	public StudGroup () {
+		this.groupNumber = "";
+	}
 
 	public String getGroupNumber() {
 		return groupNumber;
