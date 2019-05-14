@@ -21,16 +21,17 @@ public class SaveFile {
 	private List<Student> students;
 	String dir = "students.xml";
 	
-	public SaveFile(List<Student> students) {
+	public SaveFile(List<Student> students, String dir) {
 		this.students = students;
+		this.dir = dir;
 		writeStudentsXML();
 	}
 	
 	private void writeStudentsXML()
 	{
-		DocumentBuilderFactory dbf = null;
-		DocumentBuilder db  = null;
-		Document doc = null;
+		DocumentBuilderFactory dbf;
+		DocumentBuilder db;
+		Document doc;
 		
 		try {
 			dbf = DocumentBuilderFactory.newInstance();

@@ -12,17 +12,8 @@ public class Labwork {
 		List<Student> studentsInTable = new ArrayList<Student>();
 
 		Model model = new Model(studentsInTable);
-		Controller controller = new Controller();
+		Controller controller = new Controller(model);
 		View view = new View(controller);
-	    model.addStudentInTable(new Student(
-	    		"Шамрук",
-	    		"Евгений",
-	    		"Валерьевич",
-	    		new Course(2),
-	    		new StudGroup("721703"), 
-	    		new Works(12, 4), 
-	    		new ProgLanguage("Java")
-	    		));
 	    view.run(model);
 	}
 }

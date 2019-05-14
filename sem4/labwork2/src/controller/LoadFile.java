@@ -11,7 +11,7 @@ import org.xml.sax.*;
 public class LoadFile extends DefaultHandler { 
 
 	private String thisElement = "";
-	private Student student;
+	private Student student = new Student();
 	private List<Student> students;
  
 	public List<Student> getStudentList() {
@@ -39,13 +39,9 @@ public class LoadFile extends DefaultHandler {
 	} 
  
 	@Override 
-	public void characters(char[] ch, int start, int length) throws SAXException { 
-		if (thisElement.equalsIgnoreCase("student")) { 
-			student = new Student();
-		}			
+	public void characters(char[] ch, int start, int length) throws SAXException {		
 		if (thisElement.equalsIgnoreCase("surname")) { 
-			String surname = new String(ch, start, length);
-			student.setSurname(surname); 
+			this.student.setSurname(new String(ch, start, length)); 
 		} 
 		if (thisElement.equalsIgnoreCase("name")) { 
 		     student.setName(new String(ch, start, length)); 
@@ -68,6 +64,7 @@ public class LoadFile extends DefaultHandler {
 		if (thisElement.equalsIgnoreCase("prog_lang")) { 
 		     student.getProgLanguage().setProgLanguage(new String(ch, start, length)); 
 		     this.students.add(student);
+		     student = new Student();
 		}
 	}
 } 

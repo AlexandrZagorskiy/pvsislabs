@@ -11,6 +11,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -21,29 +22,49 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import controller.GenerateRandomStudent;
 import labwork2.model.*;
 
 public class View {
 	
-	private Table table;
 	private Display display;
 	private Shell mainWindowShell;
 	private Menu menuBar;
-	private Controller controller;
 	
+	private Label tableInfo;
+	private Table table;
+	private Button toStart;
+	private Button toEnd;
+	private Button next;
+	private Button prev;
+	private int currPage;
+	private int maxPage;
+	private int rowsCount;
+	
+	
+	private Controller controller;	
 	
 	public View(Controller controller) {
 		this.display = new Display();		
 		this.mainWindowShell = new Shell(this.display);		
 		this.menuBar = new Menu(mainWindowShell, SWT.BAR);
-		this.table = new Table(mainWindowShell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
+		this.table = new Table(mainWindowShell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		this.controller = controller;
+		this.currPage = 1;
+		this.rowsCount = 20;
+		this.tableInfo = new Label(mainWindowShell, SWT.NONE);
 	}
 	
 	public void run(Model model) {
+		
+	    GridData gridDataTable = new GridData();
+	    gridDataTable.horizontalSpan = 5;
 
+		GridLayout gridLayout = new GridLayout();
+	    gridLayout.numColumns = 5;
+	    
 		this.mainWindowShell.setText("таблица");
-		this.mainWindowShell.setLayout(new RowLayout(SWT.HORIZONTAL));
+		this.mainWindowShell.setLayout(gridLayout);
 		
 		MenuItem addStudent = new MenuItem(this.menuBar, SWT.CASCADE);
 		addStudent.setText("Добавить студента");		
@@ -55,13 +76,61 @@ public class View {
 		saveFile.setText("Сохранить");	
 		MenuItem loadFile = new MenuItem(this.menuBar, SWT.CASCADE);
 		loadFile.setText("Загрузить");
+		MenuItem randomStudents = new MenuItem(this.menuBar, SWT.CASCADE);
+		randomStudents.setText("Заполнить таблицу");
+		MenuItem clearTable = new MenuItem(this.menuBar, SWT.CASCADE);
+		clearTable.setText("Очистить таблицу");
 		this.mainWindowShell.setMenuBar(this.menuBar);
 		
 		this.table.setHeaderVisible(true);
 		this.table.setLinesVisible(true);
 		
+		table.setLayoutData(gridDataTable);
 		showTable(model.getStudentsInTable(), this.table);
+		
+	    toStart = new Button(mainWindowShell, SWT.PUSH);
+	    toStart.setText(" <<< ");
+	    prev = new Button(mainWindowShell, SWT.PUSH);
+	    prev.setText("   <   ");
+	    next = new Button(mainWindowShell, SWT.PUSH);
+	    next.setText("   >   ");
+	    toEnd = new Button(mainWindowShell, SWT.PUSH);
+	    toEnd.setText(" >>> ");
 	    
+		maxPage = 1;		
+		
+		toStart.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				currPage = 1;
+				showTable(model.getStudentsInTable(), table);
+			}
+		});
+		
+		prev.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				if (currPage != 1) {
+					currPage--;
+				}
+				showTable(model.getStudentsInTable(), table);
+			}
+		});
+		
+		next.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				if (currPage != maxPage) {
+					currPage++;
+				}
+				showTable(model.getStudentsInTable(), table);
+			}
+		});
+		
+		toEnd.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				currPage = maxPage;
+				showTable(model.getStudentsInTable(), table);
+			}
+		});
+		
 	    addStudent.addSelectionListener (new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				addWindow(model);
@@ -82,18 +151,45 @@ public class View {
 	    
 	    saveFile.addSelectionListener (new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				controller.save(model.getStudentsInTable());				
+				FileDialog dialog = new FileDialog(mainWindowShell, SWT.SAVE);
+			    dialog.setFilterNames(new String[] {"XML Files"});
+			    dialog.setFilterExtensions(new String[] {"*.xml"});
+			    dialog.setFilterPath("D:\\projects on Java\\LabPpvis\\sem4\\labwork2\\");
+			    dialog.setFileName("students.xml");
+			    dialog.open();			    
+				controller.save(model.getStudentsInTable(), dialog.getFileName());
 			}
 		});
 	    
 	    loadFile.addSelectionListener (new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				model.setStudentsInTable(controller.load("D:\\projects on Java\\LabPpvis\\sem4\\labwork2\\src\\controller\\students.xml"));
+				FileDialog dialog = new FileDialog(mainWindowShell, SWT.OPEN);
+			    dialog.setFilterNames(new String[] {"XML Files"});
+			    dialog.setFilterExtensions(new String[] {"*.xml"});
+			    dialog.setFilterPath("D:\\projects on Java\\LabPpvis\\sem4\\labwork2\\");
+			    dialog.setFileName("students.xml");
+			    dialog.open();
+				model.setStudentsInTable(controller.load(dialog.getFileName()));
 				showTable(model.getStudentsInTable(), getTable());
 			}
 		});
 	    
-	    mainWindowShell.pack();		
+	    clearTable.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				model.setStudentsInTable(new ArrayList<>());
+				showTable(model.getStudentsInTable(), getTable());
+				MessageBox messagebox = new MessageBox(mainWindowShell);
+				messagebox.setMessage("Таблица очищена");
+				messagebox.open();
+			}
+		}); 
+	    
+	    randomStudents.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				addRandomStudent(model);
+			}
+		});
+	    	
 		mainWindowShell.open();
 		while (!mainWindowShell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -103,7 +199,37 @@ public class View {
 		display.dispose();
 	}
 	
-	public void addWindow(Model model) {
+	private void addRandomStudent(Model model) {
+		GridLayout gridLayout = new GridLayout();
+	    gridLayout.numColumns = 1;
+	    
+		Shell addRandomStudentWindow = new Shell(this.mainWindowShell);
+		addRandomStudentWindow.setLayout(gridLayout);
+		addRandomStudentWindow.setText("добавить студента");
+		addRandomStudentWindow.setSize(240, 224);
+		
+		Label studentsCountLabel = new Label(addRandomStudentWindow, SWT.NONE);
+        Text studentsCountText = new Text(addRandomStudentWindow, SWT.NONE);
+        studentsCountLabel.setText("Введите количество студентов, которых хотите добавить: ");
+        
+        Button addRandomStudentButton = new Button(addRandomStudentWindow, SWT.PUSH);
+        addRandomStudentButton.setText("Добавить студента");
+        
+        Button cancelButton = new Button(addRandomStudentWindow, SWT.PUSH);
+		cancelButton.setText("Отмена");
+		
+		addRandomStudentButton.addSelectionListener (new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				
+				new GenerateRandomStudent(Integer.parseInt(studentsCountText.getText()), model.getStudentsInTable());
+				showTable(model.getStudentsInTable(), getTable());
+			}
+		});
+		
+		addRandomStudentWindow.open();
+	}
+	
+	private void addWindow(Model model) {
 
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
@@ -149,9 +275,10 @@ public class View {
 		progLanguageLabel.setText("Язык программирования: ");
 		
 		Button addStudentButton = new Button(addStudentWindow, SWT.PUSH);
-		Button cancelButton = new Button(addStudentWindow, SWT.PUSH);
 		addStudentButton.setLayoutData(gridDataButton);
 		addStudentButton.setText("Добавить студента");
+		
+		Button cancelButton = new Button(addStudentWindow, SWT.PUSH);
 		cancelButton.setLayoutData(gridDataButton);
 		cancelButton.setText("Отмена");
 				
@@ -183,7 +310,7 @@ public class View {
 		addStudentWindow.open();
 	}
 	
-	public void deleteWindow(Model model) {
+	private void deleteWindow(Model model) {
 		
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
@@ -322,7 +449,7 @@ public class View {
 		deleteStudentWindow.open();
 	}
 
-	public void searchWindow(Model model) {
+	private void searchWindow(Model model) {
 		
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
@@ -464,6 +591,7 @@ public class View {
 	private void showTable(List<Student> studentsInTable, Table table) {		
 		table.clearAll();
 		table.setItemCount(0);
+		maxPage = (studentsInTable.size() / rowsCount) + 1;
 		
 		String[] titles = {
 				" ФИО ",
@@ -478,10 +606,13 @@ public class View {
 	        TableColumn column = new TableColumn(table, SWT.NONE);
 	        column.setText(titles[currColumn]);
 	    }
-		
-		for (int currStud = 0;
-		currStud < studentsInTable.size();
-		currStud++) {			
+	    
+	    int currStudMax = rowsCount*currPage;
+	    int currStudMin = rowsCount*(currPage-1);
+	    if (currStudMax > studentsInTable.size()) {
+	    	currStudMax = studentsInTable.size();
+	    }
+		for (int currStud = currStudMin; currStud < currStudMax; currStud++) {			
 			TableItem item = new TableItem(table, SWT.NONE);
 		    Student student = studentsInTable.get(currStud);
 		    item.setText(0,
@@ -505,15 +636,21 @@ public class View {
 				student.getProgLanguage().getProgLanguage()
 				);			
 		}
-
+		table.setItemCount(rowsCount);
+		
 		for (int currColumn = 0; currColumn < titles.length; currColumn++) {
 			table.getColumn(currColumn).pack();
 		    }
 		
-		table.setSize(table.computeSize(SWT.DEFAULT, 200));
+		table.setSize(table.computeSize(SWT.DEFAULT, rowsCount*20));	
+		tableInfo.setText("страница " + currPage +
+				" из " + maxPage +
+				" || студентов всего: " + studentsInTable.size());
+		mainWindowShell.redraw();
+		mainWindowShell.layout();
 	}
 	
-	public void resultWindow(List<Student> students) {
+	private void resultWindow(List<Student> students) {
 		
 		GridLayout gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
@@ -533,14 +670,8 @@ public class View {
 		messagebox.open();	
 	}
 
-
 	private Table getTable() {
 		return table;
 	}
-
-	private void setTable(Table table) {
-		this.table = table;
-	}
-	
 	
 }
