@@ -22,13 +22,15 @@ public class DeleteDialog {
 
 	Controller controller;
 	Shell mainWindowShell;
+	TableComposite tableComposite;	
 	GridLayout gridLayout;
 	GridData gridDataLabel;
 	GridData gridDataButton;
 
-	public DeleteDialog(Shell mainWindowShell, Controller controller) {
+	public DeleteDialog(Shell mainWindowShell, Controller controller, TableComposite tableComposite) {
 		this.controller = controller;
 		this.mainWindowShell = mainWindowShell;
+		this.tableComposite = tableComposite;
 		this.gridLayout = new GridLayout();
 	    gridLayout.numColumns = 2;
 	    gridLayout.makeColumnsEqualWidth = true;		
@@ -80,6 +82,7 @@ public class DeleteDialog {
 				String group = groupText.getText();
 				int studentsSizeBefore = students.size();
 				new Delete(students).nameOrGroupDelete(name, surname, patronymic, group);
+				tableComposite.showTable(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -116,6 +119,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).courseOrLangDelete(course, progLang);
+				tableComposite.showTable(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -153,6 +157,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).maxWorksOrMadeWorksDelete(maxWorks, madeWorks);
+				tableComposite.showTable(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -184,6 +189,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).undoWorksDelete(undoWorks);
+				tableComposite.showTable(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});

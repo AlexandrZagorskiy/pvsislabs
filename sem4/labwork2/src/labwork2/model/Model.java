@@ -1,8 +1,6 @@
 package labwork2.model;
 import java.util.List;
 
-import labwork2.model.*;
-
 public class Model {
 
 	private List<Student> studentsInTable;

@@ -38,7 +38,8 @@ public class Delete {
 					studentNum--;
 				}				
 			}			
-		}		
+		}
+		notify();
 		return this.students;
 	}
 	
