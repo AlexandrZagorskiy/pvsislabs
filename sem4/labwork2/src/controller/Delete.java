@@ -39,7 +39,6 @@ public class Delete {
 				}				
 			}			
 		}
-		notify();
 		return this.students;
 	}
 	

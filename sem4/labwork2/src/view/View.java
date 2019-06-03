@@ -5,6 +5,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -93,7 +94,7 @@ public class View {
 		
 		this.mainWindowShell.setMenuBar(this.menuBar);	
 
-		tableComposite = new TableComposite(this.mainWindowShell, this.controller.getModel().getStudentsInTable());
+		tableComposite = new TableComposite(this.mainWindowShell, this.controller);
 		
 	    addStudent.addSelectionListener (new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -169,8 +170,11 @@ public class View {
 			    dialog.setFilterPath("D:\\projects on Java\\LabPpvis\\sem4\\labwork2\\");
 			    dialog.setFileName("students.xml");
 			    dialog.open();
-			    controller.getModel().setStudentsInTable(controller.load(dialog.getFileName()));
-			    tableComposite.showTable(controller.getModel().getStudentsInTable());
+			    controller.load(dialog.getFileName());
+				for (Control kid : mainWindowShell.getChildren()) {
+					kid.dispose();
+				}
+			    tableComposite = new TableComposite(mainWindowShell, controller);
 			}
 		});
 	    

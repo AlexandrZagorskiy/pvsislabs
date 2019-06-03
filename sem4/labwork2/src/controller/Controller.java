@@ -15,7 +15,7 @@ public class Controller {
     	this.model = model;
     }
 	
-	public List<Student> load(String fileDir) {
+	public void load(String fileDir) {
 		List<Student> students = model.getStudentsInTable();
 		students.clear();
 	    try {
@@ -31,7 +31,6 @@ public class Controller {
 	    }
 	    
 	    model.setStudentsInTable(students);
-		return students;	    
 	}
 	
 	public void save(List<Student> students, String dir) {

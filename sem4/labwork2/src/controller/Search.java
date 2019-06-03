@@ -42,7 +42,10 @@ public class Search {
 		return this.foundStudents;
 	}
 	
-	public List<Student> courseOrLangSearch(String course, String progLang){		
+	public List<Student> courseOrLangSearch(String course, String progLang){
+		if (course.isEmpty()) {
+			course = "-1";
+		}		
 		for(Student student : students) {
 			if (student.getCourse().getCourseNumber() == Integer.parseInt(course)) {
 				this.foundStudents.add(student);
@@ -55,6 +58,12 @@ public class Search {
 	}
 	
 	public List<Student> maxWorksOrMadeWorksSearch(String maxWorks, String madeWorks){
+		if (madeWorks.isEmpty()) {
+			madeWorks = "-1";
+		}
+		if (maxWorks.isEmpty()) {
+			maxWorks = "-1";
+		}
 		for(Student student : students) {
 			if (student.getWorks().getWorksMax() == Integer.parseInt(maxWorks)) {
 				this.foundStudents.add(student);
@@ -67,6 +76,9 @@ public class Search {
 	}
 	
 	public List<Student> undoWorksSearch(String undoWorks){
+		if (undoWorks.isEmpty()) {
+			undoWorks = "-1";
+		}
 		for(Student student : students) {
 			int temp = student.getWorks().getWorksMax() - student.getWorks().getWorksMade();
 			if (temp == Integer.parseInt(undoWorks)) {

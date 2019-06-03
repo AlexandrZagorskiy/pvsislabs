@@ -82,7 +82,7 @@ public class DeleteDialog {
 				String group = groupText.getText();
 				int studentsSizeBefore = students.size();
 				new Delete(students).nameOrGroupDelete(name, surname, patronymic, group);
-				tableComposite.showTable(students);
+				tableComposite.showFirstPage(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -119,7 +119,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).courseOrLangDelete(course, progLang);
-				tableComposite.showTable(students);
+				tableComposite.showFirstPage(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -157,7 +157,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).maxWorksOrMadeWorksDelete(maxWorks, madeWorks);
-				tableComposite.showTable(students);
+				tableComposite.showFirstPage(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});
@@ -189,7 +189,7 @@ public class DeleteDialog {
 
 				int studentsSizeBefore = students.size();
 				new Delete(students).undoWorksDelete(undoWorks);
-				tableComposite.showTable(students);
+				tableComposite.showFirstPage(students);
 				resultDialog(studentsSizeBefore, students.size());
 			}
 		});

@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import controller.Controller;
 import labwork2.model.Student;
 
 public class TableComposite {
@@ -38,6 +39,17 @@ public class TableComposite {
 	
 	public TableComposite(Shell shell, List<Student> students) {
 		this.students = students;
+		this.composite = new Composite(shell, SWT.BORDER);	
+		this.composite.setSize(shell.getSize());
+		this.currPage = 1;
+		this.rowsCount = 20;
+		this.rowsMax = 25;
+		this.rowsMin = 10;
+		this.createTableComposite();
+	}
+	
+	public TableComposite(Shell shell, Controller controller) {
+		this.students = controller.getModel().getStudentsInTable();
 		this.composite = new Composite(shell, SWT.BORDER);	
 		this.composite.setSize(shell.getSize());
 		this.currPage = 1;
@@ -136,7 +148,7 @@ public class TableComposite {
 	public void showTable(List<Student> studentsInTable) {		
 		table.clearAll();
 		table.setItemCount(0);		
-		maxPage = (studentsInTable.size() / rowsCount) + 1;
+		maxPage = ((studentsInTable.size() - 1)/ rowsCount) + 1;
 		
 		String[] titles = {
 				" ‘»Œ ",
@@ -196,6 +208,11 @@ public class TableComposite {
 		this.composite.pack();
 		this.composite.layout();
 		this.composite.redraw();
+	}
+	
+	public void showFirstPage(List<Student> studentsInTable) {
+		currPage = 1;
+		showTable(studentsInTable);
 	}
 	
 	public Composite getComposite() {
